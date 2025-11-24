@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Realtime Voice Emotion Detection</title>
+</head>
+<body>
+    <h2>🎤 Emotion Detection</h2>
+    <button id="startBtn">Start</button>
+
+    <h3>Emotion: <span id="emotion">--</span></h3>
+
+<script>
+let ws;
+let mediaRecorder;
+
+document.getElementById("startBtn").onclick = async () => {
+
+    ws = new WebSocket("ws://localhost:8000/ws");
+
+    ws.onmessage = (event) => {
+        document.getElementById("emotion").innerText = event.data;
+    };
+
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+    mediaRecorder = new MediaRecorder(stream, { mimeType: "audio/webm" });
+
+    mediaRecorder.ondataavailable = (e) => {
+        if (e.data.size > 0 && ws.readyState === 1) {
+            ws.send(e.data);
+        }
+    };
+
+    mediaRecorder.start(300); // send audio chunk every 300ms
+};
+</script>
+</body>
+</html>
