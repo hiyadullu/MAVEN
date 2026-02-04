@@ -1,7 +1,14 @@
 flask
+flask-cors
 opencv-python
 deepface
 torch
 numpy
 Pillow
 tf-keras
+librosa
+soundfile
+scikit-learn
+scipy
+joblib
+sounddevice
