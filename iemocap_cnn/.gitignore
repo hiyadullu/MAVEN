@@ -1,0 +1,28 @@
+# 🔹 Virtual environment
+venv/
+
+# 🔹 Python cache
+__pycache__/
+*.pyc
+
+# 🔹 Dataset (DO NOT PUSH)
+data/
+
+# 🔹 Generated features (DO NOT PUSH)
+features/frames/
+features/mel_specs/
+
+# 🔹 Model checkpoints (DO NOT PUSH)
+checkpoints/
+*.pth
+
+# 🔹 Images (generated results)
+*.jpg
+*.png
+
+# 🔹 Serialized files
+*.pkl
+
+# 🔹 OS junk
+.DS_Store
+Thumbs.db
