@@ -1,0 +1,15 @@
+image_path,emotion
+data/happy_01.jpg,happy
+data/happy_02.jpg,happy
+data/sad_01.jpg,sad
+data/sad_02.jpg,sad
+data/angry_01.jpg,angry
+data/angry_02.jpg,angry
+data/fear_01.jpg,fear
+data/fear_02.jpg,fear
+data/surprise_01.jpg,surprise
+data/surprise_02.jpg,surprise
+data/disgust_01.jpg,disgust
+data/disgust_02.jpg,disgust
+data/neutral_01.jpg,neutral
+data/neutral_02.jpg,neutral
