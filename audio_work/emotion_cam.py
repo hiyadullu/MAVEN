@@ -8,6 +8,7 @@ from deepface import DeepFace
 import numpy as np
 
 
+
 face_model = YOLO("yolov8n-face-lindevs.onnx")
 
 cap = cv2.VideoCapture(0)
