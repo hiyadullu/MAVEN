@@ -20,9 +20,9 @@ csv_path = os.path.join(BASE_DIR, "..", "..", "features", "visual_metadata.csv")
 # SETTINGS
 # =========================
 test_session = "Ses05"   # Change for other folds
-BATCH_SIZE = 32
+BATCH_SIZE = 8
 EPOCHS = 20
-LEARNING_RATE = 0.0001
+LEARNING_RATE = 0.0003
 NUM_CLASSES = 4
 
 device = torch.device("cpu")

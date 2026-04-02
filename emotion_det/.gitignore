@@ -1,0 +1,70 @@
+# -----------------------------
+# DATASETS (VERY IMPORTANT)
+# -----------------------------
+data/raw/
+data/processed/
+
+# Optional: keep folder structure but ignore contents
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# -----------------------------
+# MODEL FILES / CHECKPOINTS
+# -----------------------------
+checkpoints/
+*.pth
+*.pt
+
+# -----------------------------
+# PYTHON CACHE
+# -----------------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# -----------------------------
+# VIRTUAL ENVIRONMENTS
+# -----------------------------
+venv/
+env/
+.venv/
+
+# -----------------------------
+# IDE FILES (VS CODE ETC.)
+# -----------------------------
+.vscode/
+.idea/
+
+# -----------------------------
+# LOGS & OUTPUTS
+# -----------------------------
+logs/
+*.log
+outputs/
+runs/
+
+# -----------------------------
+# JUPYTER
+# -----------------------------
+.ipynb_checkpoints/
+
+# -----------------------------
+# OS FILES
+# -----------------------------
+.DS_Store
+Thumbs.db
+
+# -----------------------------
+# TEMP FILES
+# -----------------------------
+*.tmp
+*.temp
+
+# -----------------------------
+# MATPLOTLIB / CACHE
+# -----------------------------
+*.png
+*.jpg
+*.jpeg
+*.csv
