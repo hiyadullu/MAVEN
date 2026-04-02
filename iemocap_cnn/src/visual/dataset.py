@@ -1,45 +1,45 @@
-import pandas as pd
-from PIL import Image
+import os
+import torch
 from torch.utils.data import Dataset
-import torchvision.transforms as transforms
-
+from PIL import Image
 
 class IEMOCAPVisualDataset(Dataset):
-    def __init__(self, csv_file, train=True):
-        self.data = pd.read_csv(csv_file)
-        self.train = train
-
-        if self.train:
-            self.transform = transforms.Compose([
-                transforms.Resize((224, 224)),
-                transforms.RandomHorizontalFlip(),
-                transforms.RandomRotation(10),
-                transforms.ColorJitter(brightness=0.2, contrast=0.2),
-                transforms.ToTensor(),
-                transforms.Normalize(
-                    [0.485, 0.456, 0.406],
-                    [0.229, 0.224, 0.225]
-                )
-            ])
-        else:
-            self.transform = transforms.Compose([
-                transforms.Resize((224, 224)),
-                transforms.ToTensor(),
-                transforms.Normalize(
-                    [0.485, 0.456, 0.406],
-                    [0.229, 0.224, 0.225]
-                )
-            ])
+    def __init__(self, dataframe, transform=None, num_frames=16):
+        self.df = dataframe
+        self.transform = transform
+        self.num_frames = num_frames
 
     def __len__(self):
-        return len(self.data)
+        return len(self.df)
 
     def __getitem__(self, idx):
-        image_path = self.data.iloc[idx]["image_path"]
-        label = int(self.data.iloc[idx]["label"])
+        row = self.df.iloc[idx]
 
-        image = Image.open(image_path).convert("RGB")
-        image = self.transform(image)
+        folder_path = row["path"]   # <-- must point to Ses01F_scriptXX folder
+        label = row["label"]
 
-        return image, label
+        frame_files = sorted(os.listdir(folder_path))
+        frame_paths = [os.path.join(folder_path, f) for f in frame_files]
 
+        total_frames = len(frame_paths)
+
+        # 🔥 Uniform sampling
+        if total_frames >= self.num_frames:
+            indices = torch.linspace(0, total_frames - 1, steps=self.num_frames).long()
+        else:
+            indices = torch.randint(0, total_frames, (self.num_frames,))
+
+        selected_frames = [frame_paths[i] for i in indices]
+
+        frames = []
+        for frame_path in selected_frames:
+            img = Image.open(frame_path).convert("RGB")
+
+            if self.transform:
+                img = self.transform(img)
+
+            frames.append(img)
+
+        frames = torch.stack(frames)  # (T, C, H, W)
+
+        return frames, label
